@@ -1,5 +1,3 @@
-
-
 #container{
 	width: 320px;
 	height:100%;
@@ -35,6 +33,12 @@ ul.menu li a{
 	text-decoration: none;
 }
 
+/*
+ * p tag
+ */
+p.error {
+   color:red;
+ }
 
 
 
