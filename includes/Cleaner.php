@@ -4,7 +4,7 @@ class Cleaner{
 
 	function sanitize($page)
 	{
-		return "This is sanitized ". $page;
+		return $page;
 	}
 
 }
