@@ -1,0 +1,40 @@
+
+
+#container{
+	width: 320px;
+	height:100%;
+	margin: 0 auto;
+}
+
+#header{
+	background-color: blue;
+
+}
+
+#footer{
+	background-color: red;
+}
+
+ul.menu{
+	list-style-type: none;
+	padding:0;
+}
+
+ul.menu li{
+	margin: 0 0 10 0;
+	padding: 0;
+	background-color: yellow;
+
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	text-align: center;
+}
+
+ul.menu li a{
+	display:block;
+	text-decoration: none;
+}
+
+
+
+
