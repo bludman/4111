@@ -1,10 +1,10 @@
 <?php
-
+	include("includes/helpers/map_helper.php");
 	$conn= getConnection();
 	$stid = oci_parse($conn, "SELECT id,name,description,latitude,longitude FROM Sites S WHERE S.id=".$_GET['id']);
 	$err=oci_execute($stid);
 ?>
-	<ul>
+	<ul class="menu">
 		<li><a href="index.php?page=login">Description</a></li>
 		<li><a href="index.php?page=search">Map</a></li>
 		<li><a href="index.php?page=browse">Other</a></li>
@@ -13,21 +13,31 @@
 
 <?php	while ($row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS)) 
 	{
+
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
 				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
 				"</a></h2>\n";
+		
+		$displayMode= isset($_GET['disp']) ? $_GET['disp'] : "description";
+		switch ($displayMode) 
+		{
+			default:
+			case "description":
+					echo "<div id=\"site_description\">";
+					echo "<p>".($row['NAME'] !== null ? htmlentities($row['DESCRIPTION'], ENT_QUOTES) : "&nbsp;")."</p>\n";
+					echo "</div>";
+					break;
+			 case "map":
+					outputMapImage($row['LATITUDE'],$row['LONGITUDE']);
+					break;
+		}
+		
 
-		echo "<p>".($row['NAME'] !== null ? htmlentities($row['DESCRIPTION'], ENT_QUOTES) : "&nbsp;")."</p>\n";
-	
-
-?>
-	<div><img width="280" height="100" style="border:1px solid #888888;" src="http://maps.google.com/maps/api/staticmap?center=<?php echo $row['LATITUDE'].",".$row['LONGITUDE']?>&amp;size=280x100&amp;maptype=roadmap&amp;markers=color:red|<?php echo $row['LATITUDE'].",".$row['LONGITUDE']?>&amp;zoom=15&amp;sensor=false&amp;" /></div>
-    <br />
-<?php
-}
+		
+		
 
 
-
+	}
 
 	oci_close($conn);
 

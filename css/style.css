@@ -35,6 +35,9 @@ ul.menu li a{
 	text-decoration: none;
 }
 
+#site_description p{
+	text-align: justify;
+}
 
 
 
