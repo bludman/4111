@@ -1,5 +1,3 @@
-
-
 #container{
 	width: 320px;
 	height:100%;
@@ -35,9 +33,18 @@ ul.menu li a{
 	text-decoration: none;
 }
 
+
 #site_description p{
 	text-align: justify;
 }
+
+/*
+ * p tag
+ */
+p.error {
+   color:red;
+ }
+
 
 
 
