@@ -1,8 +1,10 @@
-<h2> THis is a browse page </h2>
+<h2> THis is a site page </h2>
+<p>ID: <?php echo $_GET['id']; ?> </p>
 
 <?php
+
 	$conn= getConnection();
-	$stid = oci_parse($conn, 'SELECT id,name FROM Sites');
+	$stid = oci_parse($conn, "SELECT id,name FROM Sites S WHERE S.id=$_GET['id']");
 	$err=oci_execute($stid);
 
 	echo "<table border='1'>\n";
@@ -22,6 +24,6 @@
 
 
 
-
 	oci_close($conn);
+
 ?>
