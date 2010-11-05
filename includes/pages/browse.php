@@ -2,7 +2,7 @@
 
 <?php
 	$conn= getConnection();
-	$stid = oci_parse($conn, 'SELECT id,name FROM Sites');
+	$stid = oci_parse($conn, 'SELECT id,name FROM Sites ORDER BY name');
 	$err=oci_execute($stid);
 
 	echo "<table border='1'>\n";
