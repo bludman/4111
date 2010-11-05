@@ -32,7 +32,6 @@
          $where = $where . ")";
       }
       $myQuery = $select . ' ' . $from . ' ' . $where;
-      echo($myQuery); 
       $stid = oci_parse($conn, $myQuery);
       $err=oci_execute($stid);
       
