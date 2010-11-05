@@ -1,18 +1,11 @@
 <?php
 	include("includes/helpers/map_helper.php");
+	include("includes/helpers/menu_helper.php");
 	$conn= getConnection();
 	$stid = oci_parse($conn, "SELECT id,name,description,latitude,longitude FROM Sites S WHERE S.id=".$_GET['id']);
 	$err=oci_execute($stid);
-?>
-	<ul class="menu">
-		<li><a href="index.php?page=login">Description</a></li>
-		<li><a href="index.php?page=search">Map</a></li>
-		<li><a href="index.php?page=browse">Other</a></li>
-		<li><a href="index.php?page=stats">Stats</a></li>
-	</ul>
-
-<?php	while ($row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS)) 
-	{
+	$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+	showSiteMap($row['ID']);
 
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
 				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
@@ -27,8 +20,11 @@
 					echo "<p>".($row['NAME'] !== null ? htmlentities($row['DESCRIPTION'], ENT_QUOTES) : "&nbsp;")."</p>\n";
 					echo "</div>";
 					break;
-			 case "map":
+			case "map":
 					outputMapImage($row['LATITUDE'],$row['LONGITUDE']);
+					break;
+			case "image":
+					echo "image here";
 					break;
 		}
 		
@@ -37,7 +33,6 @@
 		
 
 
-	}
 
 	oci_close($conn);
 
