@@ -5,6 +5,7 @@
  	include 'includes/init.php';
 	require_once "includes/connection.php";
 
+  echo $auth->userEmail;
 
 	include("includes/header.php");
 	//$cleanPage=$cleaner->sanitize($_GET['page']);
@@ -14,8 +15,8 @@
 		$router->renderPage($_GET['page']);
 	else
 		$router->renderPage('index');
-	
-	include("includes/footer.php"); 
+    	
+	include("includes/footer.php");
 
 ?>
 
