@@ -2,7 +2,7 @@
 
 class Authenticator{
     
-  var $userEmail;
+  private $userEmail;
   
   function __construct(){
    
@@ -41,6 +41,10 @@ class Authenticator{
     else{
       return true;
     }   
+  }
+  
+  function getEmail(){
+    return $this->userEmail;
   }
   
 }      
