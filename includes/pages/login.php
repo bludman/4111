@@ -1,27 +1,46 @@
-<h2> THis is a browse page </h2>
+<h2> This is a LogIn Page </h2>
 
 <?php
-	$conn= getConnection();
-	$stid = oci_parse($conn, 'SELECT id,name FROM Sites');
-	$err=oci_execute($stid);
 
-	echo "<table border='1'>\n";
-	while ($row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS)) 
-	{
-		echo "<tr>\n";
-		 echo "    <td>" .
-				"<a href=\"index.php?page=site&id=". $row['ID']."\">". 
-				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
-				"</a></td>\n";
-	
-		 echo "</tr>\n";
-	}
-	echo "</table>\n";
-
-
-
-
-
-
-	oci_close($conn);
+  if(!isset($_POST['password']) || !isset($_POST['email'])) {
+      require("fragments/login_form.php");
+    } 
+    else {
+      $email = $_POST['email'];
+      $password = md5($_POST['password']);
+      $conn= getConnection();
+      //Query to Find Username/Password in the Database
+      $query = "
+        SELECT U.email, U.password
+        FROM Users U
+        WHERE U.email = '" . $email . "'
+        AND U.password = '" . $password . " '";
+        
+      $stid = oci_parse($conn, $query);
+      $err=oci_execute($stid);
+      $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+      
+      //If the row isn't empty then create a Session ID
+      if (!empty($row)){
+        $token = md5($email . date(DATE_RFC822));
+        $query = "
+          UPDATE Users
+          SET token = '" . $token . "'
+          WHERE email = '" . $email . "'";
+        
+        $stid = oci_parse($conn, $query);
+        $err=oci_execute($stid);
+         
+        //Set both Cookies 
+        setcookie("session_id", $token);
+        setcookie("email", $email);
+        
+        //Redirect
+        header('Location: index.php');        
+      }
+      else{
+        echo "<p>Invalid Username / Password </p>";
+        require("fragments/login_form.php");
+      } 
+    }   
 ?>
