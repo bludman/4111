@@ -8,4 +8,5 @@ $router->addRouting('site','includes/pages/site.php');
 $router->addRouting('index','main.php');
 $router->addRouting('login','includes/pages/login.php');
 $router->addRouting('register','includes/pages/register.php');
+$router->addRouting('logout','includes/pages/logout.php');
 ?>
