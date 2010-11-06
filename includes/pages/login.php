@@ -14,7 +14,7 @@
         SELECT U.email, U.password
         FROM Users U
         WHERE U.email = '" . $email . "'
-        AND U.password = '" . $password . " '";
+        AND U.password = '" . $password . "'";
         
       $stid = oci_parse($conn, $query);
       $err=oci_execute($stid);
@@ -32,7 +32,7 @@
         $err=oci_execute($stid);
          
         //Set both Cookies 
-        setcookie("session_id", $token);
+        setcookie("sid", $token);
         setcookie("email", $email);
         
         //Redirect
