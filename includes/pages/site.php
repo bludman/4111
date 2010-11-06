@@ -1,6 +1,8 @@
 <?php
 	include_once("includes/helpers/map_helper.php");
 	include_once("includes/helpers/menu_helper.php");
+  include_once("includes/helpers/site_helper.php");
+  $siteHelper = new SiteHelper;
 	if(!is_numeric($_GET['id']))
 		die("shit, injection alert"); //TODO: 404
 
@@ -9,6 +11,7 @@
 	$err=oci_execute($stid);
 	$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
 	showSiteMap($row['ID']);
+  oci_close($conn);
 
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
 				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
@@ -30,8 +33,11 @@
 					echo "image here";
 					break;
 			case "info":
-					showMoreInfo($row['ID']);
+					$siteHelper->showMoreInfo($row['ID']);
 					break;
+      case "bathrooms":
+        $siteHelper->showBathrooms($row['ID']);
+          break;
 		}
 
 		
@@ -42,7 +48,7 @@
 
 
 
-	oci_close($conn);
+
 
 ?>
 
