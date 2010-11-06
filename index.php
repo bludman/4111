@@ -5,8 +5,6 @@
  	include 'includes/init.php';
 	require_once "includes/connection.php";
 
-  echo $auth->userEmail;
-
 	include("includes/header.php");
 	//$cleanPage=$cleaner->sanitize($_GET['page']);
 
