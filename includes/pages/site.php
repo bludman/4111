@@ -1,6 +1,6 @@
 <?php
-	include("includes/helpers/map_helper.php");
-	include("includes/helpers/menu_helper.php");
+	include_once("includes/helpers/map_helper.php");
+	include_once("includes/helpers/menu_helper.php");
 	if(!is_numeric($_GET['id']))
 		die("shit, injection alert"); //TODO: 404
 
@@ -30,19 +30,7 @@
 					echo "image here";
 					break;
 			case "info":
-					$con= getConnection();
-					foreach(determineSubclass($_GET['id']) as $table)
-					{
-									echo "<p>table :$table";
-								$stid = oci_parse($con, "SELECT * FROM ".$table. " X WHERE X.site_id=".$_GET['id']);
-								$err=oci_execute($stid);
-								$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-								foreach($row as $field)
-									echo "<p>$field";
-							
-
-					}
-					oci_close($con);
+					showMoreInfo($row['ID']);
 					break;
 		}
 
@@ -61,28 +49,6 @@
 
 <?php
 
-/**
- * Find which subtypes of Site a site belongs to
- */
-function determineSubclass($siteId)
-{
-	$con= getConnection();
-	$tables= array("Buildings","Eateries","Open_Spaces","Monuments");
-	$foundOn = array();
 
-	foreach($tables as $table)
-	{
-		$stid = oci_parse($con, "SELECT S.id FROM Sites S, ".$table." X WHERE X.site_id= S.id AND S.id=".$_GET['id']);
-		$err=oci_execute($stid);
-		$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-		if(!empty($row))
-			array_push($foundOn , $table);
-	}
-	
-	oci_close($con);
-
-	return $foundOn;
-
-}
 
 ?>
