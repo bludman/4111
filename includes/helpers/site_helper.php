@@ -1,66 +1,98 @@
 <?php
-
-
-function showMoreInfo($siteId)
+class SiteHelper
 {
-  foreach(determineSubclass($_GET['id']) as $table)
+
+  /**
+   * Display more info for a site
+   */
+  public function showMoreInfo($siteId)
   {
-    moreInfo($table);
-  }
-
-}
-
-function moreInfo($table)
-{
-  $con= getConnection();
-  echo "<p>table :$table";
-  $stid = oci_parse($con, "SELECT * FROM ".$table. " X WHERE X.site_id=".$_GET['id']);
-  $err=oci_execute($stid);
-  $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-  foreach($row as $field)
-  echo "<p>$field";
-  oci_close($con);
+    foreach($this->determineSubclass($siteId) as $table)
+    {
+      $this->moreInfo($siteId,$table);
+    }
   
-  switch ($table) 
-  {
-    case "Buildings":
-        echo "Building here";
-        break;
-    case "Eateries":
-        echo "Eateries here";
-        break;
-    case "Open_Spaces":
-        echo "Open spaces here";
-        break;
-    case "Monuments":
-      echo "Monuments here";
-        break;
   }
-}
-
-
-/**
- * Find which subtypes of Site a site belongs to
- */
-function determineSubclass($siteId)
-{
-  $con= getConnection();
-  $tables= array("Buildings","Eateries","Open_Spaces","Monuments");
-  $foundOn = array();
-
-  foreach($tables as $table)
+  
+  public function showBathrooms($buildingSiteId)
   {
-    $stid = oci_parse($con, "SELECT S.id FROM Sites S, ".$table." X WHERE X.site_id= S.id AND S.id=".$_GET['id']);
+    $con= getConnection();
+    $stid = oci_parse($con, "SELECT WC.floor, WC.male, WC.female FROM Bathrooms WC WHERE building_site_id=".$buildingSiteId);
     $err=oci_execute($stid);
-    $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-    if(!empty($row))
-      array_push($foundOn , $table);
+    $nrows = oci_fetch_all($stid,$bathrooms,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
+
+   
+      
+    if($nrows<=0)
+    {
+      echo "No bathrooms in this building";
+    }
+    else
+    {
+      echo "<ul>\n";
+       foreach($bathrooms as $wc)
+       {
+          echo "<li>Floor ". $wc['FLOOR'].": ";
+          echo ($wc['MALE']=='T' ? "MEN " :" ");
+          echo ($wc['FEMALE']=='T' ? "WOMEN " :" ") ."</li>\n" ;
+       }
+      echo "</ul>\n";
+    }
+    oci_close($con);
   }
   
-  oci_close($con);
-
-  return $foundOn;
-
+  
+  /**
+   * Find the extended info associated with this site and display it using it's display fragment
+   */
+  private function moreInfo($siteId,$table)
+  {
+    $fields= array(
+      'Buildings'=>'address, type, building_access',
+      'Eateries'=>'address, menu',
+      'Open_Spaces'=>'type',
+      'Monuments'=>'artist,year_created'
+    );
+    
+    $fragments= array(
+      'Buildings'=>'includes/pages/fragments/sites/building_info.php',
+      'Eateries'=>'includes/pages/fragments/sites/eatery_info.php',
+      'Open_Spaces'=>'includes/pages/fragments/sites/open_space_info.php',
+      'Monuments'=>'includes/pages/fragments/sites/monument_info.php'
+    );
+    
+    $con= getConnection();
+    $stid = oci_parse($con, "SELECT ".$fields[$table]." FROM ".$table. " WHERE site_id=".$siteId);
+    $err=oci_execute($stid);
+    $moreInfo = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+    include($fragments[$table]);
+    oci_close($con);
+    
+  }
+  
+  
+  /**
+   * Find which subtypes of Site a site belongs to
+   */
+  private function determineSubclass($siteId)
+  {
+    $con= getConnection();
+    $tables= array("Buildings","Eateries","Open_Spaces","Monuments");
+    $foundOn = array();
+  
+    foreach($tables as $table)
+    {
+      $stid = oci_parse($con, "SELECT S.id FROM Sites S, ".$table." X WHERE X.site_id= S.id AND S.id=".$_GET['id']);
+      $err=oci_execute($stid);
+      $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+      if(!empty($row))
+        array_push($foundOn , $table);
+    }
+    
+    oci_close($con);
+  
+    return $foundOn;
+  
+  }
 }
-
 ?>
