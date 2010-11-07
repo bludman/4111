@@ -10,26 +10,22 @@
 
 <?php
 	$conn= getConnection();
-	$stid = oci_parse($conn, "SELECT S.name,V.site_id, to_char(V.visited_at, 'Dy DD-Mon-YYYY') as d, to_char(V.visited_at, 'HH24:MI:SS') as t FROM Visits V, Sites S WHERE S.id=V.site_id AND user_email='".$auth->getEmail()."' ORDER BY V.visited_at DESC");
+	$stid = oci_parse($conn, "SELECT COUNT(*) as c FROM Visits WHERE user_email='".$auth->getEmail()."'");
 	$err=oci_execute($stid);
+  $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
 
-	echo "<table border='1'>\n";
-	while ($row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS)) 
-	{
-		echo "<tr>\n";
-		 echo "    <td>" .
-				"<a href=\"index.php?page=site&id=". $row['SITE_ID']."\">". 
-				($row['D'] !== null ? htmlentities($row['NAME']." on ". $row['D']." at ".$row['T'], ENT_QUOTES) : "&nbsp;") . 
-				"</a></td>\n";
-	
-		 echo "</tr>\n";
-	}
-	echo "</table>\n";
-
-
-
-
-
-
+	echo "Total number of visits: ".$row['C'];
+ 
+  
+  $tables= array("Buildings","Eateries","Open_Spaces","Monuments");
+  
+  foreach($tables as $table)
+  {
+    $stid = oci_parse($conn, "SELECT COUNT(*) as c FROM Visits V, ".$table." X WHERE V.site_id=X.site_id AND user_email='".$auth->getEmail()."'");
+    $err=oci_execute($stid);
+    $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+    echo "<p>Total number of $table visits: ".$row['C']."</p>";
+  }
+  
 	oci_close($conn);
 ?>
