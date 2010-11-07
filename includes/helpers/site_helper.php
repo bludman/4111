@@ -1,4 +1,6 @@
 <?php
+require_once('includes/connection.php');
+
 class SiteHelper
 {
 
@@ -14,6 +16,41 @@ class SiteHelper
   
   }
   
+  
+  public function isBuilding($siteId)
+  {
+    $con= getConnection();
+    $stid = oci_parse($con, "SELECT site_id FROM Buildings WHERE site_id=".$siteId);
+    $err=oci_execute($stid);
+    
+    $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+    return !empty($row);
+  }
+  
+  public function isEatery($siteId)
+  {
+    $con= getConnection();
+    $stid = oci_parse($con, "SELECT site_id FROM Eateries WHERE site_id=".$siteId);
+    $err=oci_execute($stid);
+    
+    $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+    return !empty($row);
+  }
+  
+  public function showBathroomsForEatery($bathroomSiteId)
+  {
+    $con= getConnection();
+    $stid = oci_parse($con, "SELECT building_site_id FROM Eateries WHERE site_id=".$bathroomSiteId);
+    $err=oci_execute($stid);
+    
+    $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+    $this->showBathrooms($row['BUILDING_SITE_ID']);
+  }
+  
+  
+  /**
+   * Show the bathrooms in a building
+   */
   public function showBathrooms($buildingSiteId)
   {
     $con= getConnection();

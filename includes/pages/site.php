@@ -10,7 +10,8 @@
 	$stid = oci_parse($conn, "SELECT id,name,description,latitude,longitude FROM Sites S WHERE S.id=".$_GET['id']);
 	$err=oci_execute($stid);
 	$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-	showSiteMap($row['ID']);
+  $siteId=$row['ID'];
+	showSiteMap($siteId);
   oci_close($conn);
 
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
@@ -33,10 +34,17 @@
 					echo "image here";
 					break;
 			case "info":
-					$siteHelper->showMoreInfo($row['ID']);
+					$siteHelper->showMoreInfo($siteId);
 					break;
       case "bathrooms":
-        $siteHelper->showBathrooms($row['ID']);
+        if($siteHelper->isBuilding($siteId)){
+          $siteHelper->showBathrooms($siteId);
+        }
+        else if($siteHelper->isEatery($siteId))
+        {
+          $siteHelper->showBathroomsForEatery($siteId);
+        }
+          
           break;
 		}
 
