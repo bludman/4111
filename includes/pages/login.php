@@ -2,6 +2,13 @@
 
 <?php
 
+  /*
+   * ************************************
+   * TO DO:
+   * Sanatize all variables!
+   * *************************************
+   */
+
   if(!isset($_POST['password']) || !isset($_POST['email'])) {
       require("fragments/login_form.php");
     } 

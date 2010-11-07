@@ -47,6 +47,29 @@ class Authenticator{
     return $this->userEmail;
   }
   
+  /*
+   * @Assumption: Not to be called before isLoggedIn()
+   */
+  function getFirstName(){
+    if ($this->isLoggedIn()){
+     $query = "
+        SELECT U.first_name
+        FROM Users U
+        WHERE U.email = '" . $this->getEmail() . "'";
+       
+      $conn = getConnection();
+      $stid = oci_parse($conn, $query);
+      $err=oci_execute($stid);
+      $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+      return $row[0];
+    }
+    else{
+      return NULL;
+    }
+  
+  }
+  
+  
 }      
         
 
