@@ -2,7 +2,11 @@
 
 class Authenticator{
     
+<<<<<<< HEAD:includes/Authenticator.php
   private $userEmail;
+=======
+  var $userEmail;
+>>>>>>> f85b5579c03ff6efe33ab17fb2bcd65805c0b7b6:includes/Authenticator.php
   
   function __construct(){
    
@@ -43,10 +47,13 @@ class Authenticator{
     }   
   }
   
+<<<<<<< HEAD:includes/Authenticator.php
   function getEmail(){
     return $this->userEmail;
   }
   
+=======
+>>>>>>> f85b5579c03ff6efe33ab17fb2bcd65805c0b7b6:includes/Authenticator.php
 }      
         
 

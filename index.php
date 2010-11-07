@@ -2,7 +2,9 @@
 	ini_set('display_errors','On');
 
 	/*** include the init.php file ***/
+
  	require_once 'includes/init.php';
+
 	require_once "includes/connection.php";
 
 	include("includes/header.php");
