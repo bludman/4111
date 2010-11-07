@@ -1,8 +1,16 @@
-<h2> THis is a browse page </h2>
+<?php 
+  require('includes/init.php');
+  if(!$auth->isLoggedIn())
+    die("No user logged in"); 
+    //TODO: Redirect to login
+?>
+
+
+<h2>Stats for <?php echo $auth->getFirstName(); ?></h2>
 
 <?php
 	$conn= getConnection();
-	$stid = oci_parse($conn, 'SELECT id,name FROM Sites');
+	$stid = oci_parse($conn, "SELECT S.name,V.site_id, to_char(V.visited_at, 'Dy DD-Mon-YYYY') as d, to_char(V.visited_at, 'HH24:MI:SS') as t FROM Visits V, Sites S WHERE S.id=V.site_id AND user_email='".$auth->getEmail()."' ORDER BY V.visited_at DESC");
 	$err=oci_execute($stid);
 
 	echo "<table border='1'>\n";
@@ -10,8 +18,8 @@
 	{
 		echo "<tr>\n";
 		 echo "    <td>" .
-				"<a href=\"index.php?page=site&id=". $row['ID']."\">". 
-				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
+				"<a href=\"index.php?page=site&id=". $row['SITE_ID']."\">". 
+				($row['D'] !== null ? htmlentities($row['NAME']." on ". $row['D']." at ".$row['T'], ENT_QUOTES) : "&nbsp;") . 
 				"</a></td>\n";
 	
 		 echo "</tr>\n";
