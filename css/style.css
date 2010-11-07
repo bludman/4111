@@ -44,6 +44,11 @@ ul.menu li a{
 p.error {
    color:red;
  }
+ 
+p#tag_line {
+  color:white;
+} 
+
 
 
 

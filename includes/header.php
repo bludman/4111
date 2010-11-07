@@ -11,4 +11,5 @@
 <div id="container">
 <div id="header">
 	<h1><a href="index.php">Campus Walkabout</a></h1>
+	<?php if ($auth->isLoggedIn()) { echo '<p id="tag_line">Welcome ' . $auth->getFirstName() . "</p>";}?>
 </div>
