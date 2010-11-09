@@ -4,5 +4,5 @@
 	<li><a href="index.php?page=browse">Browse</a></li>
 	<li><a href="index.php?page=stats">Stats</a></li>
   <li><a href="index.php?page=history">History</a></li>
-  <li><a href="index.php?page=scrap">Scrap Book</a></li>
+  <li><a href="index.php?page=scrapbook">Scrap Book</a></li>
 </ul>
