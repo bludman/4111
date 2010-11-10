@@ -15,7 +15,7 @@
 		$router->renderPage($_GET['page']);
 	else
 		$router->renderPage('index');
-    	
+       	
 	include("includes/footer.php");
 
 ?>

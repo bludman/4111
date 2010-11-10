@@ -12,5 +12,6 @@ $router->addRouting('register','includes/pages/register.php');
 $router->addRouting('logout','includes/pages/logout.php');
 $router->addRouting('change_password','includes/pages/change_password.php');
 $router->addRouting('reset_password','includes/pages/reset_password.php');
+$router->addRouting('visit','includes/pages/visit.php');
 $router->addRouting('index','main.php');
 ?>
