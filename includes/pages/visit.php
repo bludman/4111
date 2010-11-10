@@ -4,7 +4,12 @@
    if (isset($_POST['site']) && $auth->isLoggedIn()){
    
      $email = $auth->getEmail();  
-     $site_id = $_POST['site'];      
+     $site_id = $_POST['site'];   
+     
+     /*
+      * Sanitize
+      */
+        
      $date = date('Y/m/d:h:i:sA');
      
      $query = "

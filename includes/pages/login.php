@@ -13,6 +13,11 @@
       require("fragments/login_form.php");
     } 
     else {
+      
+      /*
+       * Sanitize
+       */
+       
       $email = $_POST['email'];
       $password = md5($_POST['password']);
       $conn= getConnection();

@@ -1,8 +1,7 @@
 <?php 
   require('includes/init.php');
   if(!$auth->isLoggedIn())
-    die("No user logged in"); 
-    //TODO: Redirect to login
+    header('Location: index.php?page=login'); 
 ?>
 
 

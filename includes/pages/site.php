@@ -11,6 +11,11 @@
 	$err=oci_execute($stid);
 	$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
   $siteId=$row['ID'];
+  
+  /*
+   * Sanitize
+   */
+  
 	showSiteMap($siteId);
   oci_close($conn);
 

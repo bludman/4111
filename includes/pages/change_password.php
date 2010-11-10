@@ -3,6 +3,10 @@
   $auth = new Authenticator();
 
   if (isset($_POST['old_password'])){
+    
+    /*
+     * Sanitize
+     */
       
     $oldPass = md5($_POST['old_password']);
        

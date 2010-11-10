@@ -4,6 +4,11 @@
   
   if (isset($_POST['email'])){
     $email = $_POST['email'];
+    
+    /*
+     * Sanitize
+     */
+    
     $conn= getConnection();
     //Query to Find Username/Password in the Database
     $query = "

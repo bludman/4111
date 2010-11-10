@@ -5,6 +5,11 @@
   $conn= getConnection(); 
   
   if (isset($_GET["search_field"])){
+    
+    /*
+     * Sanitize
+     */
+    
     $searchInput = filter_var($_GET['search_field'], FILTER_VALIDATE_REGEXP, 
       array('options'=>array('regexp'=>'/^[\w -]*$/')));
     if (!$searchInput){

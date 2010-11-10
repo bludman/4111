@@ -34,6 +34,18 @@ class Cleaner{
       return NULL;
     }
   }
+  
+  function sanitizeNumber($number){
+    $number = filter_var($number, FILTER_VALIDATE_REGEXP, 
+      array('options'=>array('regexp'=>'/^[0-9]*$/')));
+    if (isset($number)){
+      echo $number;
+      return $number;
+    }
+    else{
+      return NULL;
+    }
+  }
 }
 
 ?>

@@ -17,6 +17,11 @@
     }
     $email = $_POST['email'];
     $password = md5($_POST['password']);
+    
+    /*
+     * Sanitize
+     */
+    
     $token = md5($email . date(DATE_RFC822));
     setcookie("sid", $token);
     setcookie("email", $email); 
