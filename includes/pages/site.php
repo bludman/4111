@@ -1,7 +1,7 @@
 <?php
 	include_once("includes/helpers/map_helper.php");
 	include_once("includes/helpers/menu_helper.php");
-  include_once("includes/helpers/site_helper.php");
+  include_once("includes/helpers/SiteHelper.php");
   $siteHelper = new SiteHelper;
 	if(!is_numeric($_GET['id']))
 		die("shit, injection alert"); //TODO: 404

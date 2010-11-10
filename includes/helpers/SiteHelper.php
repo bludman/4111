@@ -3,6 +3,19 @@ require_once('includes/connection.php');
 
 class SiteHelper
 {
+  
+  
+  public function showListOfSites($listOfSites)
+  {
+    include('includes/pages/fragments/sites/list_header.php');
+    foreach($listOfSites as $site)
+    {
+        include('includes/pages/fragments/sites/list_body.php');
+    }
+    include('includes/pages/fragments/sites/list_footer.php');
+  }
+  
+  
 
   /**
    * Display more info for a site
@@ -57,8 +70,6 @@ class SiteHelper
     $stid = oci_parse($con, "SELECT WC.floor, WC.male, WC.female FROM Bathrooms WC WHERE building_site_id=".$buildingSiteId);
     $err=oci_execute($stid);
     $nrows = oci_fetch_all($stid,$bathrooms,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
-
-   
       
     if($nrows<=0)
     {
