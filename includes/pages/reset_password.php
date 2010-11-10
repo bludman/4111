@@ -15,10 +15,11 @@
     $err=oci_execute($stid);
     $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
     if (isset($row[0])){
-        $newPass = md5($_POST['new_password1']);
+        $newPass = md5(date(DATE_RFC822));
+        $md5Pass = md5($newPass);
         $query = "
             UPDATE Users
-            SET password = '" . $newPass . "'
+            SET password = '" . $md5Pass . "'
             WHERE email = '" . $email . "'";
   
         $stid = oci_parse($conn, $query);
@@ -36,7 +37,7 @@
   
   function emailUser($email, $newToken, $firstName) {
     $subject = "Change Password for " . $firstName;
-    $body = 'Your new Password is ' . $token . ". Please return to CampusWalkabout.com to restore your password.";
+    $body = 'Your new Password is ' . $newToken . ". Please return to CampusWalkabout.com to restore your password.";
     if (mail($email, $subject, $body)) {
       echo("<p>Message successfully sent!</p>");
     } 
