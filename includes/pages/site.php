@@ -47,21 +47,25 @@
           
           break;
 		}
+    
+    $auth = new Authenticator();
+    
+		if ($auth->isLoggedIn()) {
+		  echo '
+		  <form action="index.php?page=visit" method="post">
+        <p><input type="hidden" name="site" value="' . $siteId .'" /></p>
+        <input type="submit" value="Visit" />
+      </form>
+		  ';
+		}
+    
+    
+		
 
 		
 		
 
-		
-		
 
-
-
-
-
-?>
-
-
-<?php
 
 
 
