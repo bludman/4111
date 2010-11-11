@@ -19,3 +19,7 @@
 	 <li><a href="index.php?page=search">Search</a></li>
    <li><a href="index.php?page=walkabout">Walkabouts</a></li>
 </ul>
+
+<?php
+include("includes/recommendations.php");
+?>
