@@ -47,37 +47,26 @@
     }//listing a walkabout
     else
     {
-        $auth= new Authenticator;
-        /*
-        $query="
-        SELECT S.id, S.name, V.visited_at, V.user_email 
-        FROM  Sites S, 
-        (select * 
-        from comprised_of W
-        LEFT OUTER JOIN Visits V
-        ON W.site_id = V.site_id) H
-        WHERE S.id= H.site_id AND H.walkabout_name='Donor' AND H.user_email IS NULL "//='".$auth->getEmail() ."'
-        ."ORDER BY name";
-        */
-        
-        /* If user is logged in, collect data to see which of the sites in the walkabout he has visited*/
-        if($auth->isLoggedIn())
-        {
-           $query="
-            SELECT * 
-            FROM Visits V
-            RIGHT OUTER JOIN (
-            SELECT S.id,S.name 
-            FROM comprised_of W, Sites S 
-            WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' 
-            ORDER BY name) P 
-            ON P.id=V.site_id AND V.user_email='".$auth->getEmail() ."'";
-        }
-        /* If the user is not logged in, just show the list of sites  */
-        else
-        {
-          $query="SELECT S.id,S.name FROM comprised_of W, Sites S WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' ORDER BY name";
-        }
+      $auth= new Authenticator;
+          
+      /* If user is logged in, collect data to see which of the sites in the walkabout he has visited*/
+      if($auth->isLoggedIn())
+      {
+         $query="
+          SELECT * 
+          FROM Visits V
+          RIGHT OUTER JOIN (
+          SELECT S.id,S.name 
+          FROM comprised_of W, Sites S 
+          WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' 
+          ORDER BY name) P 
+          ON P.id=V.site_id AND V.user_email='".$auth->getEmail() ."'";
+      }
+      /* If the user is not logged in, just show the list of sites  */
+      else
+      {
+        $query="SELECT S.id,S.name FROM comprised_of W, Sites S WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' ORDER BY name";
+      }
         
        
         
@@ -86,8 +75,16 @@
       $stid = oci_parse($conn,$query);
       $err=oci_execute($stid);
       $nrows=oci_fetch_all($stid,$sites,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
-      echo "<h3>". $_GET['walkabout']."</h3>";
-      $siteHelper->showListOfSites($sites);
+      if($nrows>=1)
+      {
+        echo "<h3>". $_GET['walkabout']."</h3>";
+        $siteHelper->showListOfSites($sites);
+      }
+      else
+      {
+        echo "<p>No Matching Walkabout</p>";
+      }
+          
     }
   }
   else
