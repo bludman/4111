@@ -4,12 +4,15 @@
       <?php echo ($site['NAME'] != null ? htmlentities($site['NAME'], ENT_QUOTES) : "Unknown Site Name"); ?> 
       </a>
   </td>
-  <td>
+  <td class="icons">
     <?php 
     
     $category='default';
     $icon= array(
-      'Building'=>'academic.png',
+      'Building'=>'building.png',
+      'Eatery'=>'eatery.png',
+      'Monument'=>'monument.png',
+      'Open_Area'=>'open_area.png',
       'default'=>'question.png'
     );
     ?>
