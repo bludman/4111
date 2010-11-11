@@ -1,4 +1,4 @@
-<h2> This is a search page </h2>
+<h2>Search</h2>
 
 <?php
   include_once("includes/helpers/SiteHelper.php");
