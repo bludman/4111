@@ -11,12 +11,14 @@
 	$err=oci_execute($stid);
 	$row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
   $siteId=$row['ID'];
-	showSiteMap($siteId);
+	
   oci_close($conn);
 
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
 				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
 				"</a></h2>\n";
+        
+        showSiteMenu($siteId);
 		
 		$displayMode= isset($_GET['disp']) ? $_GET['disp'] : "description";
 		switch ($displayMode) 

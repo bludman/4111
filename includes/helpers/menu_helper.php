@@ -1,6 +1,6 @@
 <?php
 
-function showSiteMap($siteId)
+function showSiteMenu($siteId)
 {
 ?>
 	<ul class="menu">
