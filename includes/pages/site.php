@@ -25,6 +25,7 @@
         showSiteMenu($siteId);
 		
 		$displayMode= isset($_GET['disp']) ? $_GET['disp'] : "description";
+    echo "<div class=\"content\">";
 		switch ($displayMode) 
 		{
 			default:
@@ -64,6 +65,8 @@
       </form>
 		  ';
 		}
+    
+    echo "</div>";
     
     
 		
