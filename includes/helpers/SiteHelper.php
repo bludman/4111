@@ -5,12 +5,12 @@ class SiteHelper
 {
   
   
-  public function showListOfSites($listOfSites)
+  public function showListOfSites($listOfSites, $showVisited=false, $showCategory=false)
   {
     include('includes/pages/fragments/sites/list_header.php');
     foreach($listOfSites as $site)
     {
-        include('includes/pages/fragments/sites/list_body.php');
+      include('includes/pages/fragments/sites/list_body.php');
     }
     include('includes/pages/fragments/sites/list_footer.php');
   }

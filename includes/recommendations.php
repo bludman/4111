@@ -37,7 +37,7 @@
   $rowToShow = rand(0,4);
   
   echo '
-    <p id="recommend_link">You might like to visit 
+    <p id="recommend_link" style="text-align: center;">You might like to visit 
     <a href="index.php?page=site&id='. $sites[$rowToShow]["ID"] .'">'. $sites[$rowToShow]["NAME"] .'</a>
   ';
   }
@@ -61,7 +61,7 @@
   $rowToShow = rand(0,2);
   
   echo '
-    <p id="recommend_link">Hungry? Try 
+    <p id="recommend_link" style="text-align: center;">Hungry? Try 
     <a href="index.php?page=site&id='. $sites[$rowToShow]["SITE_ID"] .'">'. $sites[$rowToShow]["NAME"] .'</a>
     [<a href="'. $sites[$rowToShow]["MENU"] .'" target="_blank">View Menu</a>]</p>
   ';

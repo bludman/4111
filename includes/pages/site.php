@@ -4,7 +4,7 @@
   include_once("includes/helpers/SiteHelper.php");
   $siteHelper = new SiteHelper;
 	if(!is_numeric($_GET['id']))
-		die("shit, injection alert"); //TODO: 404
+      header('Location: index.php'); 
 
 	$conn= getConnection();
 	$stid = oci_parse($conn, "SELECT id,name,description,latitude,longitude FROM Sites S WHERE S.id=".$_GET['id']);
@@ -54,6 +54,7 @@
 					echo "image here";
 					break;
 			case "info":
+          echo '<span style="text-align: left;"';
 					$siteHelper->showMoreInfo($siteId);
           
           $conn= getConnection();
@@ -71,7 +72,7 @@
             }
             echo "</ul>";
           }
-          
+          echo '</span>';
 					break;
       case "bathrooms":
         if($siteHelper->isBuilding($siteId)){
@@ -87,15 +88,5 @@
     
    
     echo "</div>";
-    
-    
-		
-
-		
-		
-
-
-
-
 
 ?>

@@ -23,6 +23,6 @@
 	$err=oci_execute($stid);
   $nrows=oci_fetch_all($stid,$sites,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
   $siteHelper = new SiteHelper;
-  $siteHelper->showListOfSites($sites);
+  $siteHelper->showListOfSites($sites,false,true);
 	oci_close($conn);
 ?>

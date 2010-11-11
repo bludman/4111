@@ -15,8 +15,6 @@
   /*Display the sites that are part of a walkabout */
   if(!empty($theWalkabout))
   {
-    
-          
       /* If user is logged in, collect data to see which of the sites in the walkabout he has visited*/
       if($auth->isLoggedIn())
       {
@@ -46,7 +44,7 @@
       if($nrows>=1)
       {
         echo "<h3>". $_GET['walkabout']."</h3>";
-        $siteHelper->showListOfSites($sites);
+        $siteHelper->showListOfSites($sites,true);
       }
       else
       {

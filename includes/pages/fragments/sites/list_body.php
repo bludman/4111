@@ -6,7 +6,7 @@
   </td>
   <?php 
     $auth= new Authenticator;
-    if($auth->isLoggedIn()):
+    if($showVisited &&  $auth->isLoggedIn()):
   ?>
     <td>
     <?php 
@@ -21,6 +21,8 @@
     </td>
   <?php
     endif;
+  if($showCategory):
+  
   ?>
   <td class="icons">
     <?php 
@@ -55,7 +57,7 @@
     <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="Category Icon"/>
     
   </td>
-  
+  <?php endif; ?>
   
   
 </tr>
