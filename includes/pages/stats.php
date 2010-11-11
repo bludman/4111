@@ -13,6 +13,7 @@
 	$stid = oci_parse($conn, "SELECT COUNT(*) as c FROM Visits WHERE user_email='".$auth->getEmail()."'");
 	$err=oci_execute($stid);
   $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
+  $totalVisits=$row['C'];
 
 	
  
@@ -27,7 +28,7 @@
     echo "<p>Total number of $table visits: ".$row['C']."</p>";
   }
   
-  echo "Total number of visits: ".$row['C'];
+  echo "Total number of visits: ".$totalVisits;
 ?>
 
 
