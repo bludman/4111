@@ -53,7 +53,7 @@
     }     
   }
   else{
-    echo "<h2>This is a Change Password Page!</h2>";
+    echo "<h2>Change Password?</h2>";
     require("fragments/change_password_form.php");
   }
 
