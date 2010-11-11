@@ -47,13 +47,6 @@
     }//listing a walkabout
     else
     {
-      /*
-      $query="
-        SELECT S.id,S.name 
-        FROM comprised_of W, Sites S 
-        WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' 
-        ORDER BY name";
-        */
         $auth= new Authenticator;
         /*
         $query="
@@ -67,17 +60,26 @@
         ."ORDER BY name";
         */
         
-        $query="
-        SELECT * 
-        FROM Visits V
-        RIGHT OUTER JOIN (
-        SELECT S.id,S.name 
-        FROM comprised_of W, Sites S 
-        WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' 
-        ORDER BY name) P 
-        ON P.id=V.site_id and V.user_email='bsl2106@columbia.edu'
+        /* If user is logged in, collect data to see which of the sites in the walkabout he has visited*/
+        if($auth->isLoggedIn())
+        {
+           $query="
+            SELECT * 
+            FROM Visits V
+            RIGHT OUTER JOIN (
+            SELECT S.id,S.name 
+            FROM comprised_of W, Sites S 
+            WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' 
+            ORDER BY name) P 
+            ON P.id=V.site_id AND V.user_email='".$auth->getEmail() ."'";
+        }
+        /* If the user is not logged in, just show the list of sites  */
+        else
+        {
+          $query="SELECT S.id,S.name FROM comprised_of W, Sites S WHERE S.id= W.site_id AND W.walkabout_name='".$_GET['walkabout']."' ORDER BY name";
+        }
         
-        ";
+       
         
         
         
