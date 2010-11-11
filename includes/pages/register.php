@@ -1,26 +1,27 @@
 <h2>This is a Register Page</h2>
 
-
 <?php
 
-  if (!isset($_POST['email']) || !isset($_POST['password'])){
+  $mrClean = new Cleaner;
+
+  if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['first_name']) && isset($_POST['last_name'])){
+    $pass = $mrClean->sanitize($_POST['password'], Cleaner::PASS_CHARS);
+    $first = $mrClean->sanitize($_POST['first_name'], Cleaner::WORD_CHARS);
+    $last = $mrClean->sanitize($_POST['last_name'], Cleaner::WORD_CHARS);
+    $email = $mrClean->sanitizeEmail($_POST['email']);
+  }
+
+  if (!isset($email) || !isset($pass)){
     require('fragments/register_form.php');  
   }
   else{
-    $first = NULL;
-    $last = NULL;
-    if (isset($_POST['first_name'])){
-      $first = $_POST['first_name'];
+    if (!isset($first)){
+      $first = NULL;
     }
-    if (isset($_POST['last_name'])){
-      $last = $_POST['last_name'];
+    if (!isset($last)){
+      $last = NULL;
     }
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    
-    /*
-     * Sanitize
-     */
+    $password = md5($pass);
     
     $token = md5($email . date(DATE_RFC822));
     setcookie("sid", $token);
@@ -36,7 +37,5 @@
     
     header('Location: index.php'); 
   }
-  
-  
-  
+    
 ?>

@@ -2,26 +2,21 @@
 
 <?php
 
-  /*
-   * ************************************
-   * TO DO:
-   * Sanatize all variables!
-   * *************************************
-   */
+  $mrClean = new Cleaner;
 
-  if(!isset($_POST['password']) || !isset($_POST['email'])) {
+  if (isset($_POST['password']) && isset($_POST['email'])){
+    $pass = $mrClean->sanitize($_POST['password'], Cleaner::PASS_CHARS);
+    $email = $mrClean->sanitizeEmail($_POST['email']);
+  }
+
+  if(!isset($pass) || !isset($email)) {
       require("fragments/login_form.php");
     } 
-    else {
-      
-      /*
-       * Sanitize
-       */
-       
-      $email = $_POST['email'];
-      $password = md5($_POST['password']);
+    else {    
+      $password = md5($pass);
       $conn= getConnection();
       //Query to Find Username/Password in the Database
+      //The assumption if it finds a row it exists
       $query = "
         SELECT U.email, U.password
         FROM Users U
@@ -41,7 +36,7 @@
           WHERE email = '" . $email . "'";
         
         $stid = oci_parse($conn, $query);
-        $err=oci_execute($stid);
+        $err = oci_execute($stid);
          
         //Set both Cookies 
         setcookie("sid", $token);

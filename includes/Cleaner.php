@@ -1,51 +1,47 @@
 <?php
 
 class Cleaner{
-   
+  
+  const PASS_CHARS = "/^[\w -!@#\$%\^&\*\(\)]*$/";
+  const WORD_CHARS = "/^[\w -]*$/";
+  const NUMBER_CHARS = "/^[0-9]*$/";
+  
+  /*
+   * sanitize by passing a word to sanitize and choosing one of the constant filters
+   */
+  function sanitize($input, $string){
+    if (isset($input)){
+      $input = filter_var($input, FILTER_VALIDATE_REGEXP, 
+        array('options'=>array('regexp'=>$string)));
+      if (isset($input)){
+        return $input;
+      }
+      else{
+        return NULL;
+      }
+    }
+    else{
+      return NULL; 
+    }
+  }
+  
+  /*
+   * Other Option is to sanitize by email
+   */
   function sanitizeEmail($email){
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-      return false;
+    if (isset($email)){
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        return false;
       }
-    else {
-      return $email;
+      else {
+        return $email;
       }
     }
-  
-  function sanitizePassword($pass) {
-    $pass = filter_var($pass, FILTER_VALIDATE_REGEXP, 
-      array('options'=>array('regexp'=>'/^[\w -!@#\$%\^&\*\(\)]*$/')));
-    if (isset($pass)){
-      echo $pass;
-      return $pass;
-    }
     else{
       return NULL;
     }
   }
   
-  function sanitizeWord($word){
-    $word = filter_var($word, FILTER_VALIDATE_REGEXP, 
-      array('options'=>array('regexp'=>'/^[\w -]*$/')));
-    if (isset($word)){
-      echo $word;
-      return $word;
-    }
-    else{
-      return NULL;
-    }
-  }
-  
-  function sanitizeNumber($number){
-    $number = filter_var($number, FILTER_VALIDATE_REGEXP, 
-      array('options'=>array('regexp'=>'/^[0-9]*$/')));
-    if (isset($number)){
-      echo $number;
-      return $number;
-    }
-    else{
-      return NULL;
-    }
-  }
 }
 
 ?>
