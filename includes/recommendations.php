@@ -1,31 +1,34 @@
 <?php
-
   $ran = rand(0,1);
   
   $auth = new Authenticator;
     
   if ($ran == 0){
-    recommendLocation();
+    recommendLocation($auth);
   }
   else{
     recommendEatery();
   }
     
-  function recommendLocation(){
+  function recommendLocation($auth){
     $query = "
     SELECT * 
     FROM (SELECT S.name AS Name, S.id AS ID
       FROM Sites S, Buildings B, (SELECT *
             FROM (SELECT B.Type AS Type, COUNT(B.Type) AS CNT
               FROM Buildings B, Visits V
-              WHERE B.site_id = V.site_id AND V.user_email='bsl2106@columbia.edu'
+              WHERE B.site_id = V.site_id";
+              if ($auth->isLoggedIn()){
+               $query = $query . " AND V.user_email='". $auth->getEmail() ."'"; 
+              }
+              $query = $query . " 
               GROUP BY B.Type
               ORDER BY CNT DESC)
             WHERE ROWNUM <= 1) T
       WHERE S.id = B.site_id AND B.type = T.Type)
-    WHERE ROWNUM <=5
+    WHERE ROWNUM <= 5
     ";
-    
+  
   $conn= getConnection();
   $stid = oci_parse($conn, $query);
   $err = oci_execute($stid);
