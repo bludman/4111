@@ -1,16 +1,40 @@
+body{
+/*background-color: #E5D6B9*/-
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  font-family: helvetica, arial sans-serif;  
+  color: #544B49;
+}
+
 #container{
+	/*width: 50%;*/
 	width: 320px;
 	height:100%;
 	margin: 0 auto;
+	background-color: #E5D6B9;
 }
 
 #header{
-	background-color: blue;
+	background-color: #C9B39B;
+	margin: 0;
+	/*
+	position: absolute;
+	width: 100%;
+	*/
+	top: 0px;
 
 }
 
 #footer{
-	background-color: red;
+	background-color: #C9B39B;
+	/*
+  position: relative;
+  width: 100%;
+	bottom: 0px;
+	*/
 }
 
 ul.menu{
@@ -19,13 +43,15 @@ ul.menu{
 }
 
 ul.menu li{
-	margin: 0 0 10 0;
+	margin: 0 5px 10px 5px;
 	padding: 0;
-	background-color: yellow;
+	background-color: #C9B39B;
 
 	border-radius: 15px;
+	border: medium solid #544B49;
 	-moz-border-radius: 15px;
 	text-align: center;
+	font-weight: bold;
 }
 
 ul.menu li a{
@@ -49,7 +75,17 @@ p#tag_line {
   color:white;
 } 
 
+table,td {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  
+  
+}
 
+tr{
+  border-bottom: thin solid #544B49;
+}
 
 
 
