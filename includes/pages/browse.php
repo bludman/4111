@@ -1,4 +1,4 @@
-<h2> THis is a browse page </h2>
+<h2>Browse</h2>
 
 <?php
   include_once("includes/helpers/SiteHelper.php");
