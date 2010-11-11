@@ -9,6 +9,10 @@ body{
   color: #544B49;
 }
 
+h2, h3{
+  text-align: center;
+}
+
 #container{
 	/*width: 50%;*/
 	width: 320px;
@@ -35,6 +39,9 @@ body{
 
 }
 
+#header h1{
+  margin-bottom: 0;
+}
 
 
 #content{
@@ -57,16 +64,12 @@ body{
 
 #footer{
 	background-color: #C9B39B;
-	/*
-  position: relative;
-  width: 100%;
-	bottom: 0px;
-	*/
 }
 
 ul.menu{
 	list-style-type: none;
 	padding:0;
+	margin:0;
 }
 
 ul.menu li{
@@ -99,6 +102,7 @@ p.error {
  
 p#tag_line {
   color:white;
+  margin: 0;
 } 
 
 
@@ -106,25 +110,63 @@ table {
   border: none;
   border-collapse: collapse;
   width: 100%;
-  
-  
 }
 
 tr{
-  border-bottom: thin solid #544B49;
- }
+     border: none;
+}
 
-img{
-  display: inline;
+td, th{
+ 
+    border-bottom: thin solid #544B49;
+}
+
+td a{
+  text-decoration: none;
 }
 td.icons{
   width: *;
   text-align: right;
-
 }
 
 .date{
   font-size: small;
 }
 
+input{
+  
+  margin: 0 5px 10px 5px;
+  padding: 0;
+  width: 310px;
+  background-color: #C9B39B;
 
+  display:block;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  
+  border: medium solid #544B49;
+  text-align: center;
+  font-weight: bold;
+}
+
+form p{
+  text-align: center; 
+}
+
+div.content {
+  text-align: center;
+}
+
+
+dl{
+  margin: 0 auto;
+  text-align: left;
+}
+
+dd{
+  margin-left: 10px;
+}
+
+dt{
+  margin-left: 30px;
+}
