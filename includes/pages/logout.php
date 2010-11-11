@@ -12,6 +12,10 @@
     if($_POST['logout'] == "yes") {
       $token = md5('Eli Rules' . date(DATE_RFC822));
       
+      /*
+       * Sanitize
+       */
+      
       $conn = getConnection();
       //Query to Find Username/Password in the Database
       $query = "

@@ -1,31 +1,36 @@
 <?php
  
-  //Must refactor the shit out of this code. And sanitize! -E
+  $mrClean = new Cleaner;
   
   if (isset($_POST['email'])){
-    $email = $_POST['email'];
+    $email = $mrClean->sanitizeEmail($_POST['email']);
+  }
+  
+  if (isset($email)){
+   
     $conn= getConnection();
     //Query to Find Username/Password in the Database
     $query = "
-        SELECT U.email
+        SELECT U.email, U.first_name
         FROM Users U
         WHERE U.email = '" . $email . "'";
         
     $stid = oci_parse($conn, $query);
-    $err=oci_execute($stid);
+    $err = oci_execute($stid);
     $row = oci_fetch_array($stid,OCI_BOTH+OCI_RETURN_NULLS);
-    if (isset($row[0])){
+    
+    if (isset($row['EMAIL'])){
         $newPass = md5(date(DATE_RFC822));
         $md5Pass = md5($newPass);
         $query = "
             UPDATE Users
             SET password = '" . $md5Pass . "'
             WHERE email = '" . $email . "'";
-  
+             
         $stid = oci_parse($conn, $query);
         $err = oci_execute($stid);
-    
-        emailUser($email, $newPass, $email);     
+        
+        emailUser($email, $newPass, $row['FIRST_NAME']);     
     }
     else{
       echo "Could not find email. Please try again!";
@@ -35,7 +40,7 @@
     require("fragments/reset_password_form.php");
   }  
   
-  function emailUser($email, $newToken, $firstName) {
+  function emailUser($email, $newPass, $firstName) {
         
     // subject
     $subject = "Change Password for " . $firstName;
@@ -49,7 +54,7 @@
     <body>
       <p>Hi! You have requested a password reset for this account.</p>
       <p>Please return to CampusWalkabout.com and use this password to log in</p>
-      <strong>' . $newToken . '</strong>
+      <strong>' . $newPass . '</strong>
       <br /><br />
       <p>The CampusWalkabout Team</p>
     </body>

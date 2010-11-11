@@ -3,3 +3,6 @@
   <p>Password <input type="password" name="password" /></p>
   <input type="submit" value="Login" />
 </form>
+<br />
+<a href="index.php?page=register">Register</a>
+<a href="index.php?page=reset_password">Forgot my password</a>
