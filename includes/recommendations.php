@@ -63,7 +63,7 @@
   echo '
     <p id="recommend_link">Hungry? Try 
     <a href="index.php?page=site&id='. $sites[$rowToShow]["SITE_ID"] .'">'. $sites[$rowToShow]["NAME"] .'</a>
-    [<a href="'. $sites[$rowToShow]["MENU"] .'">View Menu</a>]</p>
+    [<a href="'. $sites[$rowToShow]["MENU"] .'" target="_blank">View Menu</a>]</p>
   ';
   }
 
