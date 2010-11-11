@@ -25,7 +25,25 @@
   <td class="icons">
     <?php 
     
-    $category='default';
+     $category='default';
+    
+    /*
+     * Each site type should only have a single subtype.
+     * This could theoretically be changed in the future, 
+     * in which case this implementation will need to change. 
+     */
+    
+    if(isset($site['BUILDING_TYPE']))
+       $category='Building';
+    else if(isset($site['MENU']))
+       $category='Eatery';
+    else if(isset($site['OPEN_TYPE']))
+       $category='Open_Area';
+    else if(isset($site['MON_ID']))
+       $category='Monument';
+    
+    
+   
     $icon= array(
       'Building'=>'building.png',
       'Eatery'=>'eatery.png',
@@ -34,7 +52,7 @@
       'default'=>'question.png'
     );
     ?>
-    <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="This is an icon"/>
+    <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="Category Icon"/>
     
   </td>
   
