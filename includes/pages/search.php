@@ -2,22 +2,20 @@
 
 <?php
   include_once("includes/helpers/SiteHelper.php");
-  $conn= getConnection(); 
+  $conn= getConnection();
   
-  if (isset($_GET["search_field"])){
-      
-    $searchInput = filter_var($_GET['search_field'], FILTER_VALIDATE_REGEXP, 
-      array('options'=>array('regexp'=>'/^[\w -]*$/')));
-    if (!$searchInput){
-      echo "<p class=\"error\">Bad Input Value</p>";
-      require("fragments/search_form.php");
-    }
-    else{
-      $select = " SELECT S.id, S.name";
+  $mrClean = new Cleaner;
+
+  if (isset($_GET['search_field'])){
+    $searchField = $mrClean->sanitize($_GET['search_field'], Cleaner::WORD_CHARS);
+  } 
+  
+  if (isset($searchField)){
+      $select = " SELECT DISTINCT S.id, S.name";
       $from = "FROM Sites S";
-      $where = "WHERE S.name LIKE '%" . $_GET["search_field"] ."%'";
+      $where = "WHERE S.name LIKE '%" . $searchField ."%'";
       $firstValue = false;
-      for ($i = 1; $i <= 4; $i++){
+      for ($i = 1; $i <= 4; $i++){ //Not a magic number! 4 is number of categories
         if (isset($_GET['type'.$i])){
           //Set SELECT, FROM, WHERE
            $from = $from . ", " . $_GET['type'.$i] . " X" . $i;
@@ -39,8 +37,6 @@
       $nrows=oci_fetch_all($stid,$sites,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
       $siteHelper = new SiteHelper;
       $siteHelper->showListOfSites($sites);
-
-    }
   }
   else {
     require("fragments/search_form.php");
