@@ -22,7 +22,20 @@
 				($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") . 
 				"</a></h2>\n";
         
-        showSiteMenu($siteId);
+    $auth = new Authenticator();
+    
+    if ($auth->isLoggedIn()) {
+      echo '
+      <form action="index.php?page=visit" method="post">
+        <p><input type="hidden" name="site" value="' . $siteId .'" /></p>
+        <input type="submit" value="Visit" />
+      </form>
+      ';
+    }
+    
+    
+    
+    showSiteMenu($siteId);
 		
 		$displayMode= isset($_GET['disp']) ? $_GET['disp'] : "description";
     echo "<div class=\"content\">";
@@ -42,6 +55,23 @@
 					break;
 			case "info":
 					$siteHelper->showMoreInfo($siteId);
+          
+          $conn= getConnection();
+          $stid = oci_parse($conn, "SELECT D.* FROM Sites S, Departments D WHERE D.headquartered_in=S.id AND S.id=".$_GET['id']);
+          $err=oci_execute($stid);
+          $nrows = oci_fetch_all($stid,$departments,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
+  
+          if($nrows>=1)
+          {
+            echo "<h3>Departments in this building</h3>";
+            echo "<ul>";
+            foreach($departments as $dept)
+            {
+              echo "<li><a href=\"http://www.columbia.edu/cu/bulletin/uwb/subj/".$dept['ACRONYM']."\">".$dept['NAME']."</a></li>";
+            }
+            echo "</ul>";
+          }
+          
 					break;
       case "bathrooms":
         if($siteHelper->isBuilding($siteId)){
@@ -55,17 +85,7 @@
           break;
 		}
     
-    $auth = new Authenticator();
-    
-		if ($auth->isLoggedIn()) {
-		  echo '
-		  <form action="index.php?page=visit" method="post">
-        <p><input type="hidden" name="site" value="' . $siteId .'" /></p>
-        <input type="submit" value="Visit" />
-      </form>
-		  ';
-		}
-    
+   
     echo "</div>";
     
     
