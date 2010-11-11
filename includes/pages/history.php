@@ -5,7 +5,7 @@
 ?>
 
 
-<h2>Stats for <?php echo $auth->getFirstName(); ?></h2>
+<h2>History for <?php echo $auth->getFirstName(); ?></h2>
 
 <?php
   $conn= getConnection();
