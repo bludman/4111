@@ -4,6 +4,24 @@
       <?php echo ($site['NAME'] != null ? htmlentities($site['NAME'], ENT_QUOTES) : "Unknown Site Name"); ?> 
       </a>
   </td>
+  <?php 
+    $auth= new Authenticator;
+    if($auth->isLoggedIn()):
+  ?>
+    <td>
+    <?php 
+    if(isset($site['VISITED_AT']))
+    { 
+      //echo "<td>";
+      //$site['VISITED_AT']." " .$site['USER_EMAIL'].
+      echo "<img src=\"images/icons/checkmark.png\" alt=\"This is an icon\"/>";
+      //echo "</td>";
+    } 
+    ?>
+    </td>
+  <?php
+    endif;
+  ?>
   <td class="icons">
     <?php 
     
@@ -17,5 +35,9 @@
     );
     ?>
     <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="This is an icon"/>
+    
   </td>
+  
+  
+  
 </tr>
