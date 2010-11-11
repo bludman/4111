@@ -5,7 +5,6 @@
   if ($auth->isLoggedIn()){
     echo '
       <li><a href="index.php?page=history">History</a></li>
-      <li><a href="index.php?page=scrapbook">Scrap Book</a></li>
       <li><a href="index.php?page=change_password">Settings</a></li>
       <li><a href="index.php?page=stats">Stats</a></li> 
     ';
