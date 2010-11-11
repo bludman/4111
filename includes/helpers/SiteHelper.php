@@ -77,14 +77,15 @@ class SiteHelper
     }
     else
     {
-      echo "<ul>\n";
+      echo "<table>\n";
        foreach($bathrooms as $wc)
        {
-          echo "<li>Floor ". $wc['FLOOR'].": ";
-          echo ($wc['MALE']=='T' ? "MEN " :" ");
-          echo ($wc['FEMALE']=='T' ? "WOMEN " :" ") ."</li>\n" ;
+          echo "<tr><td>Floor ". $wc['FLOOR']."</td><td> ";
+          echo ($wc['MALE']=='T' ? "<img src=\"images/icons/man.png\" />" :" ");
+          echo ($wc['FEMALE']=='T' ? "<img src=\"images/icons/woman.png\" />" :" ");
+          echo "</td></tr>\n" ;
        }
-      echo "</ul>\n";
+      echo "</table>\n";
     }
     oci_close($con);
   }
