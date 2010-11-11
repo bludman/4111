@@ -35,6 +35,26 @@ body{
 
 }
 
+
+
+#content{
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#content img{
+  text-align: center;
+  margin: 0 auto;
+}
+
+#site_description p{
+  text-align: justify;
+  margin-left: 5px;
+  margin-right: 5px;  
+}
+
+
 #footer{
 	background-color: #C9B39B;
 	/*
@@ -55,8 +75,9 @@ ul.menu li{
 	background-color: #C9B39B;
 
 	border-radius: 15px;
-	border: medium solid #544B49;
 	-moz-border-radius: 15px;
+	
+	border: medium solid #544B49;
 	text-align: center;
 	font-weight: bold;
 }
@@ -67,9 +88,7 @@ ul.menu li a{
 }
 
 
-#site_description p{
-	text-align: justify;
-}
+
 
 /*
  * p tag
@@ -99,8 +118,9 @@ img{
   display: inline;
 }
 td.icons{
-  width=*;
+  width: *;
   text-align: right;
 
 }
+
 
