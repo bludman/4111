@@ -8,9 +8,9 @@
 
   if (isset($_GET['search_field'])){
     $searchField = $mrClean->sanitize($_GET['search_field'], Cleaner::WORD_CHARS);
-  } 
-  
-  if (isset($searchField)){
+  }
+    
+  if (!empty($searchField)){
       $select = " SELECT DISTINCT S.id, S.name";
       $from = "FROM Sites S";
       $where = "WHERE S.name LIKE '%" . $searchField ."%'";

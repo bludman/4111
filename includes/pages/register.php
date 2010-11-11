@@ -11,14 +11,14 @@
     $email = $mrClean->sanitizeEmail($_POST['email']);
   }
 
-  if (!isset($email) || !isset($pass)){
+  if (empty($email) || empty($pass)){
     require('fragments/register_form.php');  
   }
   else{
-    if (!isset($first)){
+    if (empty($first)){
       $first = NULL;
     }
-    if (!isset($last)){
+    if (empty($last)){
       $last = NULL;
     }
     $password = md5($pass);
