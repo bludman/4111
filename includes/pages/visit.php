@@ -54,7 +54,7 @@
         $nrows = oci_fetch_all($stid,$sites,0,-1,OCI_FETCHSTATEMENT_BY_ROW+OCI_ASSOC);
        
         for ($i = 0; $i <$nrows; $i++){
-       
+          //For every walkabout see if there are any sites not checked into
           $query2 = "
           SELECT DISTINCT S.name, S.id AS ID
           FROM Sites S
@@ -70,7 +70,7 @@
           $stid2 = oci_parse($conn, $query2);
           $err2 = oci_execute($stid2);
           $row = oci_fetch_array($stid2,OCI_BOTH+OCI_RETURN_NULLS);
-          
+          //If there are not walkabouts not checked into then mark as completed
           if (empty($row)){
               $query3 = "
                 INSERT INTO Completes (user_email,walkabout_name)
@@ -79,7 +79,7 @@
               $stid3 = oci_parse($conn, $query3);
               $err3 = oci_execute($stid3);
               echo "
-               <p>You've completed the ". $sites[$i]['NAME'] ." walkabout</p><br />
+               <p>You've completed the ". $sites[$i]['NAME'] ." walkabout</p>
                ";
           }
         }        

@@ -1,4 +1,4 @@
-<h2>This is a Logout Page</h2>
+<h2>Log Out</h2>
 <h4>Don't Logout!</h4>
 
 <?php
