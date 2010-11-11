@@ -73,7 +73,7 @@ class SiteHelper
       
     if($nrows<=0)
     {
-      echo "No bathrooms in this building";
+      echo "No bathrooms here.";
     }
     else
     {
