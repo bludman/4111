@@ -17,5 +17,6 @@
     );
     ?>
     <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="This is an icon"/>
+    <?php if(isset($site['VISITED_AT'])) echo $site['VISITED_AT']." " .$site['USER_EMAIL']; ?>
   </td>
 </tr>
