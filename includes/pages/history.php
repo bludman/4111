@@ -19,7 +19,7 @@
      echo "    <td>" .
         "<a href=\"index.php?page=site&id=". $row['SITE_ID']."\">". 
         ($row['NAME'] !== null ? htmlentities($row['NAME'], ENT_QUOTES) : "&nbsp;") .
-        "</a></br><span> on ". $row['D']." at ".$row['T']." </span></td>\n";
+        "</a><br /><span class=\"date\"> on ". $row['D']." at ".$row['T']." </span></td>\n";
   
      echo "</tr>\n";
   }
