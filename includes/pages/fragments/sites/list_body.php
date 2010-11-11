@@ -5,6 +5,14 @@
       </a>
   </td>
   <td>
-  Category information here
+    <?php 
+    
+    $category='default';
+    $icon= array(
+      'Building'=>'academic.png',
+      'default'=>'question.png'
+    );
+    ?>
+    <img src="<?php echo 'images/icons/'.$icon[$category];?>" alt="This is an icon"/>
   </td>
 </tr>
