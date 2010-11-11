@@ -1,4 +1,4 @@
-<h2>This is a Register Page</h2>
+<h2>Register a New User</h2>
 
 <?php
 

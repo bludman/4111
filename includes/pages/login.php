@@ -1,4 +1,4 @@
-<h2> This is a LogIn Page </h2>
+<h2> Log In</h2>
 
 <?php
 
