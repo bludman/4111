@@ -7,7 +7,7 @@
     $oldPass = $mrClean->sanitize($_POST['old_password'], Cleaner::PASS_CHARS);
   }
   
-  if (isset($oldPass)){
+  if (!empty($oldPass)){
           
     $oldPass = md5($oldPass);
        
@@ -31,7 +31,7 @@
         $newPass1 = $mrClean->sanitize($_POST['new_password1'], Cleaner::PASS_CHARS);
         $newPass2 = $mrClean->sanitize($_POST['new_password2'], Cleaner::PASS_CHARS);  
       }
-      if (!isset($newPass1) || !isset($newPass2)){
+      if (empty($newPass1) || empty($newPass2)){
         require("fragments/change_password_form.php");  
       }
       else if($newPass1 != $newPass2){

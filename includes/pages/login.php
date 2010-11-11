@@ -9,7 +9,7 @@
     $email = $mrClean->sanitizeEmail($_POST['email']);
   }
 
-  if(!isset($pass) || !isset($email)) {
+  if(empty($pass) || empty($email)) {
       require("fragments/login_form.php");
     } 
     else {    
