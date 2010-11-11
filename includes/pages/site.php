@@ -16,7 +16,7 @@
    * Sanitize
    */
   
-	showSiteMap($siteId);
+	showSiteMenu($siteId);
   oci_close($conn);
 
 		echo "<h2><a href=\"index.php?page=site&id=". $row['ID']."\">". 
